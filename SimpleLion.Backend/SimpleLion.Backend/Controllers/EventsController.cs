@@ -20,17 +20,24 @@ namespace SimpleLion.Backend.Controllers
 
         // GET api/values
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Event>>> Get(double lat, double lng, double distance)
+        public async Task<ActionResult<IEnumerable<Event>>> Get(double lat, double lng, double distance, string rubric = "any")
         {
-            return await eventsStore.GetEventsNearby(lat, lng, distance);
+            return await eventsStore.GetEventsNearby(lat, lng, distance, rubric);
         }
 
         // GET api/values/5
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]Event @event)
         {
+            if (@event.StartTime >= @event.EndTime)
+                ModelState.AddModelError(string.Empty, "Дата начала должна быть раньше даты окончания");
+            if (@event.StartTime < DateTime.Now)
+                ModelState.AddModelError(string.Empty, "Событие должно начинаться в будущем");
+            if (!ModelState.IsValid)
+                return BadRequest(new { errors = ModelState.SelectMany(er => er.Value.Errors.Select(e => e.ErrorMessage)) });
+
             await eventsStore.AddEvent(@event);
-            return Ok();
+            return Created(string.Empty, @event);
         }
     }
 }

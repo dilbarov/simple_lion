@@ -31,7 +31,8 @@ namespace SimpleLion.EventsLib
                                                   @Comment,
                                                   @Title,
                                                   @Rubric,
-                                                  @LocationName)";
+                                                  @LocationName)
+                                           RETURNING id";
 
         const string GetEventsQuery = @"SELECT 
                                             id AS Id,
@@ -50,7 +51,10 @@ namespace SimpleLion.EventsLib
                                         WHERE ST_DistanceSphere(
                                              location,
                                              ST_GeomFromEWKT('SRID=4326;POINT(' || @lat || ' ' || @lng || ')')
-                                           ) < @dist";
+                                           ) < @dist 
+                                        AND start_time - (current_timestamp + interval '5 hours') < interval '30 minutes'
+                                        AND current_timestamp + interval '5 hours' < end_time
+                                        AND (rubric = @rubric OR @rubric='any')";
 
         private readonly string connectionString;
 
@@ -63,15 +67,16 @@ namespace SimpleLion.EventsLib
         {
             using (var connection = new NpgsqlConnection(connectionString))
             {
-                await connection.ExecuteScalarAsync<int>(InsertEventQuery, @event);
+                var newId = await connection.ExecuteScalarAsync<int>(InsertEventQuery, @event);
+                @event.Id = newId;
             }
         }
 
-        public async Task<Event[]> GetEventsNearby(double lat, double lng, double dist)
+        public async Task<Event[]> GetEventsNearby(double lat, double lng, double dist, string rubric)
         {
             using (var connection = new NpgsqlConnection(connectionString))
             {
-                var result = await connection.QueryAsync<Event>(GetEventsQuery, new { lat, lng, dist });
+                var result = await connection.QueryAsync<Event>(GetEventsQuery, new { lat, lng, dist, rubric });
                 return result.ToArray();
             }
         }
