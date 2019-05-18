@@ -1,16 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.452
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleLion.Backend", "SimpleLion.Backend\SimpleLion.Backend.csproj", "{70F75539-DA60-4549-92C4-5E4B79797880}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLion.Bot", "SimpleLion.Bot\SimpleLion.Bot.csproj", "{CA5A1E3A-952E-41F5-AC23-88EE9D0ACE0C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{02AD4401-4941-4423-A4B1-EBB70A1563F8} = {02AD4401-4941-4423-A4B1-EBB70A1563F8}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLion.EventsLib", "SimpleLion.EventsLib\SimpleLion.EventsLib.csproj", "{02AD4401-4941-4423-A4B1-EBB70A1563F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleLion.EventsLib", "SimpleLion.EventsLib\SimpleLion.EventsLib.csproj", "{02AD4401-4941-4423-A4B1-EBB70A1563F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleLion.Bot", "SimpleLion.Bot\SimpleLion.Bot.csproj", "{7213A021-973F-436A-A460-0B895D3B59B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,14 +22,14 @@ Global
 		{70F75539-DA60-4549-92C4-5E4B79797880}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70F75539-DA60-4549-92C4-5E4B79797880}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70F75539-DA60-4549-92C4-5E4B79797880}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA5A1E3A-952E-41F5-AC23-88EE9D0ACE0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA5A1E3A-952E-41F5-AC23-88EE9D0ACE0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA5A1E3A-952E-41F5-AC23-88EE9D0ACE0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA5A1E3A-952E-41F5-AC23-88EE9D0ACE0C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02AD4401-4941-4423-A4B1-EBB70A1563F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{02AD4401-4941-4423-A4B1-EBB70A1563F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02AD4401-4941-4423-A4B1-EBB70A1563F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02AD4401-4941-4423-A4B1-EBB70A1563F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7213A021-973F-436A-A460-0B895D3B59B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7213A021-973F-436A-A460-0B895D3B59B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7213A021-973F-436A-A460-0B895D3B59B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7213A021-973F-436A-A460-0B895D3B59B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
