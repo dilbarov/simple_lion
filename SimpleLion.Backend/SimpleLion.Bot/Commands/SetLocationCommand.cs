@@ -32,6 +32,8 @@ namespace SimpleLion.Bot.Commands
             _states.SetLocation(message.Chat.Id, message.Location.Latitude, message.Location.Longitude);
 
             var rkm = new ReplyKeyboardMarkup();
+            rkm.Selective = true;
+            rkm.ResizeKeyboard = true;
             rkm.Keyboard =
                 new[]
                 {
@@ -42,7 +44,7 @@ namespace SimpleLion.Bot.Commands
                     }
                 };
 
-            await _bot.SendTextMessageAsync(message.Chat.Id, "Text", replyMarkup: rkm);
+            await _bot.SendTextMessageAsync(message.Chat.Id, "Это новое мероприятие?", replyMarkup: rkm);
             _states.AddState(message.Chat.Id, Name,NextName);
         }
     }

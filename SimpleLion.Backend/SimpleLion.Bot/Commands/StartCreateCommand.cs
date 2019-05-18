@@ -6,6 +6,7 @@ using SimpleLion.Bot.Models;
 using SimpleLion.Bot.StateRepository;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace SimpleLion.Bot.Commands
 {
@@ -24,10 +25,22 @@ namespace SimpleLion.Bot.Commands
         public async Task ExecuteAsync(Message message)
         {
             _repository.ClearState(message.Chat.Id);
+            
+            _repository.AddState(message.Chat.Id, Name, NextName);
+            var rkm = new ReplyKeyboardMarkup();
+            rkm.ResizeKeyboard = true;
+            rkm.Keyboard =
+                new[]
+                {
+                    new[]
+                    {
+                        new KeyboardButton("Отправить геопозицию"){RequestLocation = true}
+                    }
+                };
+
             await _bot.SendTextMessageAsync(
                 message.Chat,
-                "Пришлите геоопозицию");
-            _repository.AddState(message.Chat.Id, Name, NextName);
+                "Пришлите геоопозицию",replyMarkup:rkm);
         }
     }
 }

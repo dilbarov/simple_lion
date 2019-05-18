@@ -23,13 +23,13 @@ namespace SimpleLion.Bot.Commands
         public static string NextName => SetTitleCommand.Name;
         public async Task ExecuteAsync(Message message)
         {
-            switch (message.Text)
+            switch (message.Text.ToLower())
             {
-                case "Да": 
+                case "да": 
                     _states.AddState(message.Chat.Id, Name, NextName);
                     await _bot.SendTextMessageAsync(message.Chat.Id, "Введите название");
                     break;
-                case "Нет":
+                case "нет":
                     _states.ClearState(message.Chat.Id);
                     await _bot.SendTextMessageAsync(message.Chat.Id,
                         "Тогда лан");
