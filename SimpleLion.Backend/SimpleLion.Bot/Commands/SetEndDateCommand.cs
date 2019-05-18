@@ -23,7 +23,13 @@ namespace SimpleLion.Bot.Commands
         public static string NextName => SetEndTimeCommand.Name;
         public async Task ExecuteAsync(Message message)
         {
-            if (DateTime.TryParse(message.Text, out DateTime date))
+            if (message.Text.ToLower() == "сегодня")
+            {
+                _states.SetEndDate(message.Chat.Id, DateTime.Now);
+                _states.AddState(message.Chat.Id, Name, NextName);
+                await _bot.SendTextMessageAsync(message.Chat, _constants.Messages.SendTime);
+            }
+            else if (DateTime.TryParse(message.Text, out DateTime date))
             {
                 _states.SetEndDate(message.Chat.Id, date);
                 _states.AddState(message.Chat.Id, Name, NextName);

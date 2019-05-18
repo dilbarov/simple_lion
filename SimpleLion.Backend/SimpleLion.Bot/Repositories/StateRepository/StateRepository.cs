@@ -80,8 +80,7 @@ namespace SimpleLion.Bot.Repositories.StateRepository
         {
             var state = GetState(chatId);
             if (state == null) return;
-            var newDateTime = new DateTime(state.DateTime.Year,state.DateTime.Month,state.DateTime.Day, time.Hours,time.Minutes, time.Seconds);
-            state.DateTime = newDateTime;
+            state.DateTime = new DateTime(state.DateTime.Year, state.DateTime.Month, state.DateTime.Day, time.Hours, time.Minutes, time.Seconds);
             _context.Update(state);
             _context.SaveChanges();
         }

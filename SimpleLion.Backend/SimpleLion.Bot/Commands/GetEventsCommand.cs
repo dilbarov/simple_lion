@@ -17,8 +17,8 @@ namespace SimpleLion.Bot.Commands
             _bot = bot;
         }
 
-        public string Name => "events_question";
-        public string NextName { get; }
+        public string Name => "/events";
+        //public string NextName => 
         public async Task ExecuteAsync(Message message)
         {
         }

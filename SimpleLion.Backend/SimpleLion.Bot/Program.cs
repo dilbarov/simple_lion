@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MihaZupan;
 using SimpleLion.Bot.Commands;
 using SimpleLion.Bot.Modules;
+using SimpleLion.Bot.Services.ApiService;
 using SimpleLion.Bot.Services.CommandDetector;
 using SimpleLion.Bot.Services.MessageConstants;
 using Telegram.Bot;
@@ -46,6 +47,8 @@ namespace SimpleLion.Bot
             builder.RegisterModule(new DatabaseModule());
 
             builder.Register(c => botClient).As<ITelegramBotClient>().SingleInstance();
+
+            builder.RegisterType<ApiService>().As<IApiService>().InstancePerLifetimeScope();
 
             builder.RegisterType<MessageConstants>().AsSelf().SingleInstance();
 

@@ -12,7 +12,7 @@ namespace SimpleLion.Bot.Modules
         {
             base.Load(builder);
 
-            builder.RegisterType<BotContext>().InstancePerLifetimeScope();
+            builder.RegisterType<BotContext>().InstancePerDependency();
 
             builder.RegisterType<StateRepository>().As<IStateRepository>().InstancePerLifetimeScope();
         }
