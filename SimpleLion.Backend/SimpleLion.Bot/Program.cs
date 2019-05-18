@@ -53,6 +53,7 @@ namespace SimpleLion.Bot
             builder.RegisterType<StartCreateCommand>().Named<ICommand>(StartCreateCommand.Name);
             builder.RegisterType<SetLocationCommand>().Named<ICommand>(SetLocationCommand.Name);
             builder.RegisterType<IsNewCommand>().Named<ICommand>(IsNewCommand.Name);
+            builder.RegisterType<SetCategoryCommand>().Named<ICommand>(SetCategoryCommand.Name);
             builder.RegisterType<SetTitleCommand>().Named<ICommand>(SetTitleCommand.Name);
             builder.RegisterType<SetDateCommand>().Named<ICommand>(SetDateCommand.Name);
             builder.RegisterType<SetTimeCommand>().Named<ICommand>(SetTimeCommand.Name);

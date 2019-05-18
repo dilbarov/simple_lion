@@ -29,5 +29,7 @@ namespace SimpleLion.Bot.Models
 
         public bool IsFinished { get; set; }
 
+        public string Category { get; set; }
+
     }
 }

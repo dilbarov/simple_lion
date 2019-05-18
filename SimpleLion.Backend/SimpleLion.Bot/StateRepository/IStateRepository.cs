@@ -25,6 +25,8 @@ namespace SimpleLion.Bot.StateRepository
 
         void SetEndTime(long chatId, TimeSpan time);
 
+        void SetCategory(long chatId, string category);
+
         void Finish(long chatId);
     }
 }

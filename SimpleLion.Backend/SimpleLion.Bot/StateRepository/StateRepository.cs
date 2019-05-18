@@ -108,6 +108,15 @@ namespace SimpleLion.Bot.StateRepository
             _context.SaveChanges();
         }
 
+        public void SetCategory(long chatId, string category)
+        {
+            var state = GetState(chatId);
+            if (state == null) return;
+            state.Category = category;
+            _context.Update(state);
+            _context.SaveChanges();
+        }
+
         public void Finish(long chatId)
         {
             var state = GetState(chatId);

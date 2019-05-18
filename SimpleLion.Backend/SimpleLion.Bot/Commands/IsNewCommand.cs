@@ -20,14 +20,14 @@ namespace SimpleLion.Bot.Commands
             _states = states;
         }
         public static string Name => "isnew";
-        public static string NextName => SetTitleCommand.Name;
+        public static string NextName => SetCategoryCommand.Name;
         public async Task ExecuteAsync(Message message)
         {
             switch (message.Text.ToLower())
             {
                 case "да": 
                     _states.AddState(message.Chat.Id, Name, NextName);
-                    await _bot.SendTextMessageAsync(message.Chat.Id, "Введите название");
+                    await _bot.SendTextMessageAsync(message.Chat.Id, "Введите категорию");
                     break;
                 case "нет":
                     _states.ClearState(message.Chat.Id);
