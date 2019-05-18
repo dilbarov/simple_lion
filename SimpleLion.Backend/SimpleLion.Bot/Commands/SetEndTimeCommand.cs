@@ -22,7 +22,7 @@ namespace SimpleLion.Bot.Commands
         {
             if (TimeSpan.TryParse(message.Text, out TimeSpan time))
             {
-                _states.SetTime(message.Chat.Id, time);
+                _states.SetEndTime(message.Chat.Id, time);
                 _states.Finish(message.Chat.Id);
                 await _bot.SendTextMessageAsync(message.Chat, "Событие создано");
             }

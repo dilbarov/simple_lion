@@ -16,14 +16,14 @@ namespace SimpleLion.Bot.Services.CommandDetector
         public ICommand Detect(IContainer container, Message message)
         {
             ICommand command = null;
+
+            if(message?.Text != null &&message.Text.StartsWith("/") && container.IsRegisteredWithName<ICommand>(message.Text))
+                return container.ResolveNamed<ICommand>(message.Text);
+
             var state = _states.GetState(message.Chat.Id);
             if (state?.NextCommand != null && !state.IsFinished)
             {
                 command = container.ResolveNamed<ICommand>(state.NextCommand);
-            }
-            else if (message?.Text != null && container.IsRegisteredWithName<ICommand>(message.Text))
-            {
-                command = container.ResolveNamed<ICommand>(message.Text);
             }
 
             return command;

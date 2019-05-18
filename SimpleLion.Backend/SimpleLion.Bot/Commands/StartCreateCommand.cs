@@ -19,14 +19,15 @@ namespace SimpleLion.Bot.Commands
             _bot = bot;
             _repository = repository;
         }
-        public static string Name => "create";
+        public static string Name => "/create";
         public string NextName => SetLocationCommand.Name;
         public async Task ExecuteAsync(Message message)
         {
+            _repository.ClearState(message.Chat.Id);
             await _bot.SendTextMessageAsync(
                 message.Chat,
                 "Пришлите геоопозицию");
-            _repository.AddState(message.Chat.Id, Name,NextName);
+            _repository.AddState(message.Chat.Id, Name, NextName);
         }
     }
 }

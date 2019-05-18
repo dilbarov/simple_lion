@@ -8,7 +8,7 @@ namespace SimpleLion.Bot.StateRepository
 {
     public interface IStateRepository
     {
-        void AddState(long chatId, string currentCommand, string nextCommand);
+        void AddState(long chatId, string currentCommand = null, string nextCommand = null);
 
         CommandState GetState(long chatId);
 

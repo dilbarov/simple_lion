@@ -50,8 +50,6 @@ namespace SimpleLion.Bot
 
             builder.RegisterType<CommandDetector>().As<ICommandDetector>().InstancePerLifetimeScope();
 
-            
-            builder.RegisterType<HelloCommand>().Named<ICommand>("hello");
             builder.RegisterType<StartCreateCommand>().Named<ICommand>(StartCreateCommand.Name);
             builder.RegisterType<SetLocationCommand>().Named<ICommand>(SetLocationCommand.Name);
             builder.RegisterType<IsNewCommand>().Named<ICommand>(IsNewCommand.Name);
@@ -60,17 +58,25 @@ namespace SimpleLion.Bot
             builder.RegisterType<SetTimeCommand>().Named<ICommand>(SetTimeCommand.Name);
             builder.RegisterType<SetEndDateCommand>().Named<ICommand>(SetEndDateCommand.Name);
             builder.RegisterType<SetEndTimeCommand>().Named<ICommand>(SetEndTimeCommand.Name);
+            builder.RegisterType<HelpCommand>().Named<ICommand>(HelpCommand.Name);
+            builder.RegisterType<CancelCommand>().Named<ICommand>(CancelCommand.Name);
+
+
 
 
             Container = builder.Build();
         }
 
-        private static void OnMessage(object sender, MessageEventArgs e)
+        private static async void OnMessage(object sender, MessageEventArgs e)
         {
             var detector = Container.Resolve<ICommandDetector>();
             var command = detector.Detect(Container, e.Message);
 
             command?.ExecuteAsync(e.Message);
+
+            if (command == null)
+                await _botClient.SendTextMessageAsync(e.Message.Chat,
+                    "Чет не то ты вводишь");
         }
     }
 }
