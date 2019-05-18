@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using SimpleLion.Bot.Models;
-using Telegram.Bot.Types;
 
-namespace SimpleLion.Bot.StateRepository
+namespace SimpleLion.Bot.Repositories.StateRepository
 {
     public interface IStateRepository
     {

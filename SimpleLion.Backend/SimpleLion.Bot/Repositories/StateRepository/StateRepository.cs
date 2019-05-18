@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Microsoft.EntityFrameworkCore.Internal;
 using SimpleLion.Bot.Models;
 
-namespace SimpleLion.Bot.StateRepository
+namespace SimpleLion.Bot.Repositories.StateRepository
 {
     public class StateRepository : IStateRepository
     {

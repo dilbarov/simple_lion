@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using SimpleLion.Bot.Models;
-using SimpleLion.Bot.StateRepository;
+using SimpleLion.Bot.Repositories.StateRepository;
+using SimpleLion.Bot.Services.MessageConstants;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -14,11 +15,13 @@ namespace SimpleLion.Bot.Commands
     {
         private readonly ITelegramBotClient _bot;
         private readonly IStateRepository _repository;
+        private readonly MessageConstants _constants;
 
-        public StartCreateCommand(ITelegramBotClient bot, IStateRepository repository)
+        public StartCreateCommand(ITelegramBotClient bot, IStateRepository repository, MessageConstants constants)
         {
             _bot = bot;
             _repository = repository;
+            _constants = constants;
         }
         public static string Name => "/create";
         public string NextName => SetLocationCommand.Name;
@@ -34,13 +37,13 @@ namespace SimpleLion.Bot.Commands
                 {
                     new[]
                     {
-                        new KeyboardButton("Отправить геопозицию"){RequestLocation = true}
+                        new KeyboardButton(_constants.Messages.SendLocation){RequestLocation = true}
                     }
                 };
 
             await _bot.SendTextMessageAsync(
                 message.Chat,
-                "Пришлите геоопозицию",replyMarkup:rkm);
+                _constants.Messages.SendLocation,replyMarkup:rkm);
         }
     }
 }

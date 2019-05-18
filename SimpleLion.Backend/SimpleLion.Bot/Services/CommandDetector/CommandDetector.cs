@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using SimpleLion.Bot.Commands;
-using SimpleLion.Bot.StateRepository;
+using SimpleLion.Bot.Repositories.StateRepository;
 using Telegram.Bot.Types;
 
 namespace SimpleLion.Bot.Services.CommandDetector

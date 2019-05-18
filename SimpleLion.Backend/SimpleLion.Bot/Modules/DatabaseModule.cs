@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Autofac;
-using SimpleLion.Bot.StateRepository;
+using SimpleLion.Bot.Repositories.StateRepository;
 
 namespace SimpleLion.Bot.Modules
 {
@@ -14,7 +14,7 @@ namespace SimpleLion.Bot.Modules
 
             builder.RegisterType<BotContext>().InstancePerLifetimeScope();
 
-            builder.RegisterType<StateRepository.StateRepository>().As<IStateRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<StateRepository>().As<IStateRepository>().InstancePerLifetimeScope();
         }
     }
 }

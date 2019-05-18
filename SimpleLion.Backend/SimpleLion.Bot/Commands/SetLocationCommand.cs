@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using SimpleLion.Bot.StateRepository;
+using SimpleLion.Bot.Repositories.StateRepository;
+using SimpleLion.Bot.Services.MessageConstants;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -13,11 +14,13 @@ namespace SimpleLion.Bot.Commands
     {
         private readonly ITelegramBotClient _bot;
         private readonly IStateRepository _states;
+        private readonly MessageConstants _constants;
 
-        public SetLocationCommand(ITelegramBotClient bot, IStateRepository states)
+        public SetLocationCommand(ITelegramBotClient bot, IStateRepository states, MessageConstants constants)
         {
             _bot = bot;
             _states = states;
+            _constants = constants;
         }
         public static string Name => "location";
         public string NextName => IsNewCommand.Name;
@@ -25,14 +28,13 @@ namespace SimpleLion.Bot.Commands
         {
             if (message.Location == null)
             {
-                await _bot.SendTextMessageAsync(message.Chat.Id, "Пришлите геопозицию");
+                await _bot.SendTextMessageAsync(message.Chat.Id, _constants.Messages.SendLocation);
                 return;
             }
 
             _states.SetLocation(message.Chat.Id, message.Location.Latitude, message.Location.Longitude);
 
             var rkm = new ReplyKeyboardMarkup();
-            rkm.Selective = true;
             rkm.ResizeKeyboard = true;
             rkm.Keyboard =
                 new[]
@@ -44,7 +46,7 @@ namespace SimpleLion.Bot.Commands
                     }
                 };
 
-            await _bot.SendTextMessageAsync(message.Chat.Id, "Это новое мероприятие?", replyMarkup: rkm);
+            await _bot.SendTextMessageAsync(message.Chat.Id, _constants.Messages.IsNew, replyMarkup: rkm);
             _states.AddState(message.Chat.Id, Name,NextName);
         }
     }
