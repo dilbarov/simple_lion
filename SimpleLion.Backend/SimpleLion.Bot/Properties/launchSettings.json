@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SimpleLion.Bot": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "BotToken": "701523569:AAFb2XQaV2UNG8IoQfvw9TCK5Vub64c10ws"
+      }
+    }
+  }
+}
