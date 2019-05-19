@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  padding: 2px;
+}
+.header_right {
+  position: absolute;
+  right: 0;
+}
+.header_left{
+  z-index: 1000;
+}
+.sidebarRubric{
+  z-index: 500;
+}

@@ -1,0 +1,11 @@
+.rubric-main {
+  padding-top: 45px;
+  width: 100%;
+}
+
+.rubric-line {
+  width: 100%;
+  padding: 20px;
+  border-bottom: 1px solid black;
+  cursor: pointer;
+}

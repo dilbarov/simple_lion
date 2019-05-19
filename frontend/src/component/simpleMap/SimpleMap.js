@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
+const style = {
+  width: '100%',
+  height: '93%',
+  overflow: "hidden",
+  position: "absolute"
+};
 
 class SimpleMap extends Component {
 
@@ -55,6 +61,7 @@ class SimpleMap extends Component {
       <Map
         google={this.props.google}
         zoom={14}
+        style={style}
         initialCenter={this.props.center}
         center={this.props.center}
         onClick={this.handleClick}
@@ -72,7 +79,6 @@ class SimpleMap extends Component {
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}>
           <div>
-            <div>{this.state.selectedPlace.name}</div>
             <div>{this.state.selectedPlace.title}</div>
           </div>
         </InfoWindow>

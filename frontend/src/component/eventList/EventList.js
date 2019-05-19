@@ -21,6 +21,7 @@ class EventList extends Component {
           comment={ el.comment }
           startTime={ el.startTime }
           locationName={ el.locationName }
+          changeVisible={ this.props.changeVisible }
         />
       )
     });

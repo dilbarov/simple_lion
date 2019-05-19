@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { List } from 'semantic-ui-react'
+import './Rubric.css'
 
 class Rubric extends Component {
   constructor(props) {
@@ -9,15 +9,34 @@ class Rubric extends Component {
   render() {
     return(
       <div className="rubric-main">
-        <List>
-          <List.Item onClick={ () => this.props.change('exhibitions') } >Выставки</List.Item>
-          <List.Item onClick={ () => this.props.change('festivals') } >Фестивали</List.Item>
-          <List.Item onClick={ () => this.props.change('games') } >Игры</List.Item>
-          <List.Item onClick={ () => this.props.change('sports') } >Спорт</List.Item>
-          <List.Item onClick={ () => this.props.change('music') } >Музыка</List.Item>
-          <List.Item onClick={ () => this.props.change('other') } >Прочее</List.Item>
-          <List.Item onClick={ () => this.props.change('all') } >Показать все</List.Item>
-        </List>
+        <div className="rubric-line" onClick={ () => 
+        {this.props.change('Выставки') 
+        this.props.changeVisible();}
+        } >Выставки</div>
+        <div className="rubric-line" onClick={ () =>
+         {this.props.change('Фестивали') 
+         this.props.changeVisible();}
+         } >Фестивали</div>
+        <div className="rubric-line" onClick={ () => 
+        {this.props.change('Игры') 
+        this.props.changeVisible();}
+        } >Игры</div>
+        <div className="rubric-line" onClick={ () => 
+        {this.props.change('Спорт') 
+        this.props.changeVisible();}
+        } >Спорт</div>
+        <div className="rubric-line" onClick={ () => 
+        {this.props.change('Музыка') 
+        this.props.changeVisible();}
+        } >Музыка</div>
+        <div className="rubric-line" onClick={ () => 
+        {this.props.change('НЕЧТО') 
+        this.props.changeVisible();}
+        } >Прочее</div>
+        <div className="rubric-line" onClick={ () => 
+        {this.props.change('any') 
+        this.props.changeVisible();}
+        } >Показать все</div>
       </div>
     );
   }

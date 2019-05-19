@@ -28,8 +28,12 @@ class Event extends Component {
   render() {
     return(
       <div className="event-main">
-        <List.Item onClick={ this.openBody }>
-          <List.Header>{ this.props.title }</List.Header>
+        <List.Item 
+          onClick={ () => {
+            this.openBody();
+          } 
+        }>
+          <div className="event-list">{ this.props.title }</div>
           { this.body() }
         </List.Item>
       </div>
