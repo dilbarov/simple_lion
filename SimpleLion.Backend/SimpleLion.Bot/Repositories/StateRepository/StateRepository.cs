@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using SimpleLion.Bot.Migrations;
 using SimpleLion.Bot.Models;
 
 namespace SimpleLion.Bot.Repositories.StateRepository
@@ -118,6 +119,15 @@ namespace SimpleLion.Bot.Repositories.StateRepository
             var state = GetState(chatId);
             if (state == null) return;
             state.IsFinished = true;
+            _context.Update(state);
+            _context.SaveChanges();
+        }
+
+        public void SetComment(long chatId, string messageText)
+        {
+            var state = GetState(chatId);
+            if (state == null) return;
+            state.Comment = messageText;
             _context.Update(state);
             _context.SaveChanges();
         }

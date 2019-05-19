@@ -6,6 +6,7 @@ using SimpleLion.Bot.Services.ApiService.Models;
 using SimpleLion.Bot.Services.MessageConstants;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace SimpleLion.Bot.Commands
 {
@@ -39,9 +40,22 @@ namespace SimpleLion.Bot.Commands
                     StartTime = state.DateTime,
                     EndTime = state.DateEnd,
                     Rubric = state.Category,
-                    Title = state.Title
+                    Title = state.Title,
+                    Comment = state.Comment
                 });
-                await _bot.SendTextMessageAsync(message.Chat, _constants.Messages.CreateSuccess);
+                var rkm = new ReplyKeyboardMarkup();
+                rkm.ResizeKeyboard = true;
+                rkm.Keyboard =
+                    new[]
+                    {
+                        new[]
+                        {
+                            new KeyboardButton("/create"),
+                            new KeyboardButton("/events")
+                        }
+                    };
+                await _bot.SendTextMessageAsync(message.Chat, _constants.Messages.CreateSuccess, replyMarkup: rkm);
+
             }
             else
             {

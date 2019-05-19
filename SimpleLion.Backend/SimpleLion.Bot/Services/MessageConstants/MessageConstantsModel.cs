@@ -36,7 +36,7 @@ namespace SimpleLion.Bot.Services.MessageConstants
 
         public string IfIsNotNew { get; set; }
 
-
+        public string EmptyEvents { get; set; }
 
     }
 }

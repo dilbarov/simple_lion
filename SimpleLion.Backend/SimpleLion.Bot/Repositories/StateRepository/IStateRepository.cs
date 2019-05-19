@@ -25,5 +25,6 @@ namespace SimpleLion.Bot.Repositories.StateRepository
         void SetCategory(long chatId, string category);
 
         void Finish(long chatId);
+        void SetComment(long chatId, string messageText);
     }
 }

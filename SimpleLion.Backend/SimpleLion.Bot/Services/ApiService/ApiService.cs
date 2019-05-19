@@ -16,13 +16,10 @@ namespace SimpleLion.Bot.Services.ApiService
         {
             _restService = new RestClient("http://95.217.1.188:5000");
         }
-        public IEnumerable<EventDto> GetEvents(Location location, string rubric = null, int distance = 500)
+        public IEnumerable<EventDto> GetEvents(Location location, string rubric = "any", int distance = 500)
         {
-            var request = new RestRequest("api/Events/", Method.GET);
-            request.AddUrlSegment("lat", location.Latitude);
-            request.AddUrlSegment("lng", location.Longitude);
-            request.AddUrlSegment("distance", distance);
-            request.AddUrlSegment("rubric", rubric);
+            var request = new RestRequest($"api/Events?lat={location.Latitude.ToString().Replace(",",".")}&lng={location.Longitude.ToString().Replace(",", ".")}&distance={distance}&rubric={rubric??""}", Method.GET);
+
             try
             {
                 return _restService.Execute<List<EventDto>>(request).Data ?? new List<EventDto>();

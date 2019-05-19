@@ -13,7 +13,7 @@ namespace SimpleLion.Bot.Modules
         {
             base.Load(builder);
 
-            builder.RegisterType<CommandDetector>().As<ICommandDetector>().InstancePerLifetimeScope();
+            builder.RegisterType<CommandDetector>().As<ICommandDetector>().InstancePerDependency();
 
             builder.RegisterType<StartCommand>().Named<ICommand>(StartCommand.Name);
             builder.RegisterType<StartCreateCommand>().Named<ICommand>(StartCreateCommand.Name);
@@ -21,12 +21,17 @@ namespace SimpleLion.Bot.Modules
             builder.RegisterType<IsNewCommand>().Named<ICommand>(IsNewCommand.Name);
             builder.RegisterType<SetCategoryCommand>().Named<ICommand>(SetCategoryCommand.Name);
             builder.RegisterType<SetTitleCommand>().Named<ICommand>(SetTitleCommand.Name);
+            builder.RegisterType<CommentCommand>().Named<ICommand>(CommentCommand.Name);
             builder.RegisterType<SetDateCommand>().Named<ICommand>(SetDateCommand.Name);
             builder.RegisterType<SetTimeCommand>().Named<ICommand>(SetTimeCommand.Name);
             builder.RegisterType<SetEndDateCommand>().Named<ICommand>(SetEndDateCommand.Name);
             builder.RegisterType<SetEndTimeCommand>().Named<ICommand>(SetEndTimeCommand.Name);
             builder.RegisterType<HelpCommand>().Named<ICommand>(HelpCommand.Name);
             builder.RegisterType<CancelCommand>().Named<ICommand>(CancelCommand.Name);
+
+            builder.RegisterType<GetEventsCommand>().Named<ICommand>(GetEventsCommand.Name);
+            builder.RegisterType<EventsApiCommand>().Named<ICommand>(EventsApiCommand.Name);
+
         }
     }
 }

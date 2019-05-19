@@ -8,7 +8,7 @@ namespace SimpleLion.Bot.Services.ApiService
 {
     public interface IApiService
     {
-        IEnumerable<EventDto> GetEvents(Location location, string rubric = null, int distance = 500);
+        IEnumerable<EventDto> GetEvents(Location location, string rubric = "any", int distance = 500);
 
         void Create(EventDto ev);
     }

@@ -9,6 +9,9 @@ namespace SimpleLion.Bot
     public class BotContext : DbContext
     {
         public DbSet<CommandState> CommandStates { get; set; }
+
+        public DbSet<EventsState> EventsStates { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Filename=./dbbot.db");

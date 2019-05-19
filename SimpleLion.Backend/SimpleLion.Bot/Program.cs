@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Net;
 using System.Threading;
 using Autofac;
@@ -26,6 +27,8 @@ namespace SimpleLion.Bot
             _botClient = InitTelegramBot();
 
             ConfigureContainer(_botClient);
+
+            CultureInfo.CurrentCulture = new CultureInfo("en-US");
 
             Console.WriteLine("Bot is started");
             Thread.Sleep(int.MaxValue);

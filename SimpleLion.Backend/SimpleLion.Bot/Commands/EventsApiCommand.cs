@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SimpleLion.Bot.Repositories.StateRepository;
+using SimpleLion.Bot.Repositories.EventsStateRepository;
 using SimpleLion.Bot.Services.ApiService;
-using SimpleLion.Bot.Services.ApiService.Models;
 using SimpleLion.Bot.Services.MessageConstants;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -12,22 +12,23 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace SimpleLion.Bot.Commands
 {
-    public class SetLocationCommand : ICommand
+    public class EventsApiCommand :ICommand
     {
         private readonly ITelegramBotClient _bot;
-        private readonly IStateRepository _states;
+        private readonly IEventsStateRepository _events;
         private readonly MessageConstants _constants;
         private readonly IApiService _api;
 
-        public SetLocationCommand(ITelegramBotClient bot, IStateRepository states, MessageConstants constants, IApiService api)
+        public EventsApiCommand(ITelegramBotClient bot, IEventsStateRepository events, MessageConstants constants, IApiService api)
         {
             _bot = bot;
-            _states = states;
+            _events = events;
             _constants = constants;
             _api = api;
         }
-        public static string Name => "location";
-        public string NextName => IsNewCommand.Name;
+
+        public static string Name => "eventsapi";
+
         public async Task ExecuteAsync(Message message)
         {
             if (message.Location == null)
@@ -35,19 +36,7 @@ namespace SimpleLion.Bot.Commands
                 await _bot.SendTextMessageAsync(message.Chat.Id, _constants.Messages.SendLocation);
                 return;
             }
-
-            _states.SetLocation(message.Chat.Id, message.Location.Latitude, message.Location.Longitude);
-
-            var events = _api.GetEvents(message.Location);
-
-            foreach (var ev in events)
-            {
-                await _bot.SendTextMessageAsync(message.Chat.Id, $"{ev.Title} \n" +
-                                                                 $"{ev.StartTime.ToShortDateString()} \n" +
-                                                                 $"{ev.Comment}");
-            }
-
-            _states.AddState(message.Chat.Id, Name, NextName);
+            
 
             var rkm = new ReplyKeyboardMarkup();
             rkm.ResizeKeyboard = true;
@@ -56,13 +45,33 @@ namespace SimpleLion.Bot.Commands
                 {
                     new[]
                     {
-                        new KeyboardButton("Да"),
-                        new KeyboardButton("Нет")
+                        new KeyboardButton("/create"),
+                        new KeyboardButton("/events")
                     }
                 };
 
-            await _bot.SendTextMessageAsync(message.Chat.Id, _constants.Messages.IsNew, replyMarkup: rkm);
-         
+            var events = _api.GetEvents(message.Location);
+
+            if (!events.Any())
+            {
+                await _bot.SendTextMessageAsync(message.Chat.Id, _constants.Messages.EmptyEvents, replyMarkup: rkm);
+                return;;
+            }
+                
+
+            foreach (var ev in events)
+            {
+                await _bot.SendTextMessageAsync(message.Chat.Id, $"{ev.Title} \n" +
+                                                                 $"{ev.StartTime.ToShortDateString()} \n" +
+                                                                 $"{ev.Comment}");
+            }
+
+            _events.ClearState(message.Chat.Id);
+
+           
+            await _bot.SendTextMessageAsync(message.Chat,
+                _constants.Messages.Start, replyMarkup: rkm);
+
         }
     }
 }

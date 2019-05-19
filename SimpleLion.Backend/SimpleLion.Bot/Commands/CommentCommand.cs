@@ -9,32 +9,31 @@ using Telegram.Bot.Types;
 
 namespace SimpleLion.Bot.Commands
 {
-    public class SetTitleCommand : ICommand
+    public class CommentCommand : ICommand
     {
         private readonly ITelegramBotClient _bot;
         private readonly IStateRepository _states;
         private readonly MessageConstants _constants;
 
-        public SetTitleCommand(ITelegramBotClient bot, IStateRepository states, MessageConstants constants)
+        public CommentCommand(ITelegramBotClient bot,IStateRepository states, MessageConstants constants)
         {
             _bot = bot;
             _states = states;
             _constants = constants;
         }
-
-        public static string Name => "title";
-        public string NextName => CommentCommand.Name;
+        public static string Name => "comment";
+        public static string NextName => SetDateCommand.Name;
         public async Task ExecuteAsync(Message message)
         {
             if (!string.IsNullOrEmpty(message.Text))
             {
-                await _bot.SendTextMessageAsync(message.Chat, _constants.Messages.SendDescription);
-                _states.SetTitle(message.Chat.Id, message.Text);
-                _states.AddState(message.Chat.Id, Name,NextName);
+                await _bot.SendTextMessageAsync(message.Chat, _constants.Messages.SendDate);
+                _states.SetComment(message.Chat.Id, message.Text);
+                _states.AddState(message.Chat.Id, Name, NextName);
             }
             else
             {
-                await _bot.SendTextMessageAsync(message.Chat, _constants.Messages.SendTitle);
+                await _bot.SendTextMessageAsync(message.Chat, _constants.Messages.SendDescription);
             }
         }
     }
