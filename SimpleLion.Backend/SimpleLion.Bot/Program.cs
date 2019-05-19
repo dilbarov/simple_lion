@@ -29,6 +29,7 @@ namespace SimpleLion.Bot
             ConfigureContainer(_botClient);
 
             CultureInfo.CurrentCulture = new CultureInfo("en-US");
+            _botClient.GetMeAsync();
 
             Console.WriteLine("Bot is started");
             Thread.Sleep(int.MaxValue);
