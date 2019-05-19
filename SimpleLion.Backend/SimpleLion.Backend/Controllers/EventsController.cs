@@ -30,6 +30,12 @@ namespace SimpleLion.Backend.Controllers
             return await eventsStore.GetEventsNearby(lat, lng, distance, rubric);
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Event>> Get(int id)
+        {
+            return await eventsStore.GetEventById(id);
+        }
+
         // GET api/values/5
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]Event @event)
@@ -57,5 +63,6 @@ namespace SimpleLion.Backend.Controllers
             await eventsStore.AddEvent(@event);
             return Created(string.Empty, @event);
         }
+
     }
 }

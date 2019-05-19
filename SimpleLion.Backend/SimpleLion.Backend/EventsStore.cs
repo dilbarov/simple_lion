@@ -56,6 +56,18 @@ namespace SimpleLion.EventsLib
                                         AND current_timestamp + interval '5 hours' < end_time
                                         AND (rubric = @rubric OR @rubric='any')";
 
+        const string GetEvent = @"SELECT 
+                                    id AS Id,
+                                    comment AS Comment,
+                                    title AS Title,
+                                    location_name AS LocationName,
+                                    rubric AS Rubric,
+                                    start_time AS StartTime,
+                                    end_time AS EndTime,
+                                    ST_X(location) AS Latitude, ST_Y(location) AS Longitude
+                                FROM events
+                                WHERE id = @id";
+
         private readonly string connectionString;
 
         public EventsStore(string connectionString)
@@ -80,5 +92,14 @@ namespace SimpleLion.EventsLib
                 return result.ToArray();
             }
         }
+
+        public async Task<Event> GetEventById(int id)
+        {
+            using (var connection = new NpgsqlConnection(connectionString))
+            {
+                return await connection.QuerySingleAsync<Event>(GetEvent, new { id });
+            }
+        }
+        
     }
 }
