@@ -40,9 +40,9 @@ namespace SimpleLion.Backend
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseMvc();
             app.UseCors(o => o.AllowAnyOrigin());
+            app.UseMvc();
+            
         }
     }
 }
