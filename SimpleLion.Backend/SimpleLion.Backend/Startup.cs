@@ -27,6 +27,7 @@ namespace SimpleLion.Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddSingleton(sp => new EventsStore(Configuration.GetConnectionString("SimpleLion")));
             services.AddSingleton(sp => new HttpClient());
             services.AddMvc();
@@ -40,7 +41,12 @@ namespace SimpleLion.Backend
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors(o => o.AllowAnyOrigin());
+
+            app.UseCors(o => {
+                o.AllowAnyOrigin();
+                o.AllowAnyHeader();
+                o.AllowAnyMethod();
+            });
             app.UseMvc();
             
         }
