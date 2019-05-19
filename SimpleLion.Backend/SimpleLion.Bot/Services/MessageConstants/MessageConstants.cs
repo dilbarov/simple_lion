@@ -12,7 +12,7 @@ namespace SimpleLion.Bot.Services.MessageConstants
 
         public MessageConstants()
         {
-            var json = File.ReadAllText($"{Environment.CurrentDirectory}/strings.json");
+            var json = File.ReadAllText($"strings.json");
             Messages = JsonConvert.DeserializeObject<MessageConstantsModel>(json);
         }
 
