@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,12 +28,14 @@ namespace SimpleLion.Backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(sp => new EventsStore(Configuration.GetConnectionString("SimpleLion")));
+            services.AddSingleton(sp => new HttpClient());
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            CultureInfo.CurrentCulture = new CultureInfo("en-US");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
