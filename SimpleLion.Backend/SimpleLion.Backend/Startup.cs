@@ -47,6 +47,7 @@ namespace SimpleLion.Backend
                 o.AllowAnyHeader();
                 o.AllowAnyMethod();
             });
+
             app.UseMvc();
             
         }
