@@ -6,9 +6,10 @@ namespace SimpleLion.Bot.Services.ApiService.Models
 {
     public class EventDto
     {
-        public DateTime StartTime { get; set; }
+        public int Id { get; set; }
+        public string StartTime { get; set; }
 
-        public DateTime EndTime { get; set; }
+        public string EndTime { get; set; }
 
         public double Latitude { get; set; }
 

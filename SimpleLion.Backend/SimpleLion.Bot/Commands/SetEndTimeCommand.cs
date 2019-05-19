@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using SimpleLion.Bot.Repositories.StateRepository;
 using SimpleLion.Bot.Services.ApiService;
@@ -31,18 +32,24 @@ namespace SimpleLion.Bot.Commands
             if (TimeSpan.TryParse(message.Text, out TimeSpan time))
             {
                 _states.SetEndTime(message.Chat.Id, time);
-                _states.Finish(message.Chat.Id);
+                
                 var state = _states.GetState(message.Chat.Id);
-                _api.Create(new EventDto
+                var success = _api.Create(new EventDto
                 {
                     Longitude = state.Longitude,
                     Latitude = state.Latitude,
-                    StartTime = state.DateTime,
-                    EndTime = state.DateEnd,
+                    StartTime = state.DateTime.ToString(CultureInfo.InvariantCulture),
+                    EndTime = state.DateEnd.ToString(CultureInfo.InvariantCulture),
                     Rubric = state.Category,
                     Title = state.Title,
                     Comment = state.Comment
                 });
+                if (!success)
+                {
+                    await _bot.SendTextMessageAsync(message.Chat, _constants.Messages.SendTime);
+                    return;
+                }
+                _states.Finish(message.Chat.Id);
                 var rkm = new ReplyKeyboardMarkup();
                 rkm.ResizeKeyboard = true;
                 rkm.Keyboard =

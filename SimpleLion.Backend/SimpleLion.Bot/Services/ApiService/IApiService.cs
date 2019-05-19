@@ -10,6 +10,6 @@ namespace SimpleLion.Bot.Services.ApiService
     {
         IEnumerable<EventDto> GetEvents(Location location, string rubric = "any", int distance = 500);
 
-        void Create(EventDto ev);
+        bool Create(EventDto ev);
     }
 }

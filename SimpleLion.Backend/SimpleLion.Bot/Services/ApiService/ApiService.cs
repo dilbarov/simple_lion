@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using RestSharp;
@@ -30,12 +31,13 @@ namespace SimpleLion.Bot.Services.ApiService
             }
         }
 
-        public void Create(EventDto ev)
+        public bool Create(EventDto ev)
         {
             var request = new RestRequest("api/Events/", Method.POST);
             request.AddJsonBody(ev);
 
-            _restService.Execute(request);
+            var responce =_restService.Execute(request);
+            return responce.StatusCode == HttpStatusCode.Created;
         }
     }
 }

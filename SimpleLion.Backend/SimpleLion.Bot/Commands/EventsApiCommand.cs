@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SimpleLion.Bot.Extensions;
 using SimpleLion.Bot.Repositories.EventsStateRepository;
 using SimpleLion.Bot.Services.ApiService;
 using SimpleLion.Bot.Services.MessageConstants;
@@ -62,15 +63,16 @@ namespace SimpleLion.Bot.Commands
             foreach (var ev in events)
             {
                 await _bot.SendTextMessageAsync(message.Chat.Id, $"{ev.Title} \n" +
-                                                                 $"{ev.StartTime.ToShortDateString()} \n" +
-                                                                 $"{ev.Comment}");
+                                                                 $"{ev.StartTime} \n" +
+                                                                 $"{ev.Comment} \n" +
+                                                                 $"https://www.google.com/maps/search/?api=1&query={ev.Latitude.ReplaceDot()},{ev.Longitude.ReplaceDot()}");
             }
 
             _events.ClearState(message.Chat.Id);
 
            
             await _bot.SendTextMessageAsync(message.Chat,
-                _constants.Messages.Start, replyMarkup: rkm);
+                String.Empty, replyMarkup: rkm);
 
         }
     }
